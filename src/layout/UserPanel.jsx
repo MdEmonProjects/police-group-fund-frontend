@@ -173,7 +173,7 @@ export default function UserPanel({ children }) {
   if (!isValid) return <Navigate to={`/login`} replace />;
 
   return (
-    <div className="font-SolaimanLipi">
+    <div className="font-SolaimanLipi  min-h-screen items-center w-full bg-[#f5f9ff]">
       <Outlet />
       <DefaultModal />
       <DefaultSideDrawer />

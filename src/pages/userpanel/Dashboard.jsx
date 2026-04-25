@@ -125,7 +125,7 @@ const Dashboard = () => {
   const titleClass = 'text-sm font-semibold text-blue-700 mt-1';
 
   return (
-    <div className="app">
+    <div className="app mx-auto p-4">
       <div className="nav">
         <button
           className={`nav-btn ${activePage === "home" ? "active" : ""}`}
