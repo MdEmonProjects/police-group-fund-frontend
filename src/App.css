@@ -342,4 +342,5 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line] {
 
 .apexcharts-toolbar{
   display: none !important;
+  display: none;
 }
