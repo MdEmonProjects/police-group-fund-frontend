@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import DefaultInput from '../../components/Forms/DefaultInput';
-import { fetchResultFieldData } from '../../features/studentResultPublicView/studentResultPublicViewSlice';
+// import { fetchResultFieldData } from '../../features/studentResultPublicView/studentResultPublicViewSlice';
 import {
   useGetSoftwareLinkUserPanelQuery,
   usePostUserPhoneMutation,
@@ -231,8 +231,6 @@ export function StepTwo() {
 
 // Full Multi-Step Form
 export default function UserRegistration() {
-  const { schoolData } = useSelector((state) => state.studentResultPublicView);
-  const { schoolid } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -243,9 +241,9 @@ export default function UserRegistration() {
   const [getUserPhone] = usePostUserPhoneMutation();
   const [verifyUserPanelToken] = usePostVerifyTokenMutation();
   const [registerUserPanel] = usePostUserRegisterMutation();
-  useEffect(() => {
-    dispatch(fetchResultFieldData(schoolid));
-  }, [dispatch, schoolid]);
+  // useEffect(() => {
+  //   dispatch(fetchResultFieldData(schoolid));
+  // }, [dispatch, schoolid]);
 
   function updateFields(fields) {
     setFormData((prev) => ({ ...prev, ...fields }));
@@ -282,7 +280,6 @@ export default function UserRegistration() {
     return () => clearInterval(interval);
   }, [otpTimer]);
 
-  const school_id = schoolData?.UserCode || schoolid;
 
   async function requestOtp(phone) {
     const res = await getUserPhone({
@@ -358,14 +355,7 @@ export default function UserRegistration() {
     <section className="h-[100svh] md:h-screen w-full flex items-center justify-center bg-gradient-to-b from-white to-blue-100 sm:px-6 lg:px-8 overflow-hidden">
       <div className="w-full h-full sm:h-auto md:max-w-md bg-[#ddeffe] flex flex-col">
         <div className="bg-[#007af7] p-6 sm:p-8 md:p-6 text-center sm:rounded-t-xl rounded-b-[40px] md:rounded-b-none relative min-h-[200px] md:min-h-[150px] flex flex-col items-center justify-center">
-          <img
-            src={bufferConveter(schoolData?.Logo?.data)}
-            alt="Logo"
-            className="mx-auto w-[80px] md:w-[80px] mb-2"
-          />
-          <p className="text-white text-[18px] md:text-[30px] mt-2 md:mt-3 font-SolaimanLipi leading-[40px]">
-            {schoolData?.InstitutionName}
-          </p>
+        
         </div>
         <FormProvider {...methods}>
           <form

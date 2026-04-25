@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
-import { fetchResultFieldData } from "../features/studentResultPublicView/studentResultPublicViewSlice";
 import bnBijoy2Unicode from "../utils/conveter";
 
 import { Buffer } from "buffer";
@@ -36,10 +35,6 @@ const PublicLayout = () => {
     const imageSrc = `data:image/png;base64,${base64String}`;
     return imageSrc;
   };
-
-  useEffect(() => {
-    dispatch(fetchResultFieldData(schoolid));
-  }, [dispatch, navigate]);
 
   // Prevent body scrolling when sidebar is open on mobile
   useEffect(() => {

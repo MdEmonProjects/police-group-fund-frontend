@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import DefaultInput from '../../components/Forms/DefaultInput';
-import { fetchResultFieldData } from '../../features/studentResultPublicView/studentResultPublicViewSlice';
+// import { fetchResultFieldData } from '../../features/studentResultPublicView/studentResultPublicViewSlice';
 import {
   useGetSoftwareLinkUserPanelQuery,
   usePostForgetPassMutation,

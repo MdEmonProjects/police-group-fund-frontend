@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { verifyToken } from '../../utils/read/api';
 
 // Read the token from localStorage (or sessionStorage)
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('user_panel_token');
 
 const initialState = {
   isAuthenticated: !!token,

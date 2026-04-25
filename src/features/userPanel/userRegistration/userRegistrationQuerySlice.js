@@ -78,13 +78,13 @@ export const userPanelRegistrationUser = createApi({
     //   })
     // }),
 
-    // verifyUserPanelToken: builder.mutation({
-    //   query: (data) => ({
-    //     url: `authenticate`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    // }),
+    verifyUserPanelToken: builder.mutation({
+      query: (data) => ({
+        url: `authenticate`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -95,9 +95,9 @@ export const {
   useGetSoftwareLinkUserPanelQuery,
   usePostForgetPassMutation,
   usePostVerifyResetOtpMutation,
-  usePostResetPasswordMutation
+  usePostResetPasswordMutation,
   // usePostLoginUserPanelMutation,
-  // useVerifyUserPanelTokenMutation,
+  useVerifyUserPanelTokenMutation,
 } = userPanelRegistrationUser;
 
 // import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';

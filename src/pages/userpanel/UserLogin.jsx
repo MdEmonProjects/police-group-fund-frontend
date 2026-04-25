@@ -6,7 +6,6 @@ import { Buffer } from 'buffer';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import DefaultInput from '../../components/Forms/DefaultInput';
-import { fetchResultFieldData } from '../../features/studentResultPublicView/studentResultPublicViewSlice';
 import { usePostLoginUserPanelMutation } from '../../features/userPanel/userLoginVerify/userloginVerifyQuerySlice';
 import { useGetSoftwareLinkUserPanelQuery } from '../../features/userPanel/userRegistration/userRegistrationQuerySlice';
 // Multi-step hook
@@ -46,14 +45,13 @@ export function useMultistepForm(steps) {
 
 // Full Multi-Step Form
 export default function UserLogin() {
-  const { schoolData } = useSelector((state) => state.studentResultPublicView);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginUserPanel] = usePostLoginUserPanelMutation();
-    const { data } = useGetSoftwareLinkUserPanelQuery();
+    // const { data } = useGetSoftwareLinkUserPanelQuery();
     const [showPassword, setShowPassword] = useState(false);
-    const mobileAppInstallLink = data?.MobileAppInstall;
+    // const mobileAppInstallLink = data?.MobileAppInstall;
   // useEffect(() => {
   //   dispatch(fetchResultFieldData(schoolid));
   // }, [dispatch, navigate]);
@@ -77,7 +75,7 @@ export default function UserLogin() {
   const onSubmit = async (data) => {
     try {
       const response = await loginUserPanel({
-        usercode: data.usercode,
+        phone: data.phone,
         password: data.password,
       });
 
@@ -107,7 +105,7 @@ export default function UserLogin() {
   return (
     <section className="h-[100svh] md:h-screen w-full flex items-center justify-center bg-gradient-to-b from-white to-blue-100 sm:px-6 lg:px-8 overflow-hidden">
       <div className="w-full h-full sm:h-auto md:max-w-md bg-[#ddeffe] flex flex-col">
-        <div className="bg-[#007af7] p-6 sm:p-8 md:p-6 text-center sm:rounded-t-xl rounded-b-[40px] md:rounded-b-none relative min-h-[200px] md:min-h-[150px] flex flex-col items-center justify-center">
+        {/* <div className="bg-[#007af7] p-6 sm:p-8 md:p-6 text-center sm:rounded-t-xl rounded-b-[40px] md:rounded-b-none relative min-h-[200px] md:min-h-[150px] flex flex-col items-center justify-center">
           <img
             src={bufferConveter(schoolData?.Logo?.data)}
             alt="Logo"
@@ -116,7 +114,7 @@ export default function UserLogin() {
           <p className="text-white text-[18px] md:text-[30px] mt-2 md:mt-3 font-SolaimanLipi leading-[40px]">
             {schoolData?.InstitutionName}
           </p>
-        </div>
+        </div> */}
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -213,7 +211,7 @@ export default function UserLogin() {
                 পাসওয়ার্ড রিসেট করুন
               </Link>
             </p>
-            {mobileAppInstallLink && (
+            {/* {mobileAppInstallLink && (
               <p className="text-center text-sm text-gray-600 mt-2">
                 <Link
                   target="_blank"
@@ -223,7 +221,7 @@ export default function UserLogin() {
                   অ্যাকাউন্ট না করতে পারলে ভিডিও দেখুন।
                 </Link>
               </p>
-            )}
+            )} */}
           </form>
         </FormProvider>
       </div>

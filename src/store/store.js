@@ -24,7 +24,6 @@ import smsReducersSlice from "../features/sms/smsReducersSlice";
 import { smsSlice } from "../features/sms/smsSlice";
 import { userStudentSlice } from "../features/student/studentQuerySlice";
 import studentReducer from "../features/student/studentSlice";
-import studentResultPublicViewReducer from "../features/studentResultPublicView/studentResultPublicViewSlice";
 import { talimatQuerySlice } from "../features/talimat/talimatQuerySlice";
 import { teachersSlice } from "../features/teachers/teachersSlice";
 import { userInfoSlice } from "../features/userInfo/userInfoQuerySlice";
@@ -45,7 +44,6 @@ const store = configureStore({
     userInfo: userInfoReducer,
     class: classReducer,
     language: languageReducer,
-    studentResultPublicView: studentResultPublicViewReducer,
     requestHandeler: requestHandelerReducer,
     student: studentReducer,
     modal: modalReducer,
