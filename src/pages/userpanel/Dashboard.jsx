@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import PolicySection from './PolicySection';
 // import {
 //   useGeAllReportsQuery,
 //   useGetUserDetailsQuery,
@@ -124,6 +125,47 @@ const Dashboard = () => {
 
   const titleClass = 'text-sm font-semibold text-blue-700 mt-1';
 
+
+  {/* Template buttons */ }
+  const templates = [
+    {
+      label: "Application 1 — Medical",
+      amount: "15000",
+      reason: "Medical emergency — need funds urgently for hospital treatment and medicine costs.",
+    },
+    {
+      label: "Application 2 — House repair",
+      amount: "10000",
+      reason: "House repair — roof damage after recent storm, need funds for urgent repair work.",
+    },
+  ];
+
+  const policyItems = [
+    { number: "০১", title: "উদ্দেশ্য" },
+    { number: "০২", title: "প্রযোজ্যতা" },
+    { number: "০৩", title: "আইনগত ও প্রমাণ ভিত্তি" },
+    { number: "০৪", title: "গ্রুপ পরিচিতি ও সদস্য কাঠামো" },
+    { number: "০৫", title: "সদস্য নিবন্ধন" },
+    { number: "০৬", title: "নির্বাহী কমিটি" },
+    { number: "০৭", title: "সঞ্চয়ের উদ্দেশ্য" },
+    { number: "০৮", title: "সঞ্চয় অবদান ও সময়সীমা" },
+    { number: "০৯", title: "ব্যাংক হিসাব ও বিকল্প অপশন" },
+    { number: "১০", title: "পেমেন্ট প্রমাণ" },
+    { number: "১১", title: "বিলম্ব জরিমানা ও ধারাবাহিক বিলম্ব" },
+    { number: "১২", title: "সদস্যপদ বাতিল" },
+    { number: "১৩", title: "তহবিল ব্যবস্থাপনা" },
+    { number: "১৪", title: "পর্যালোচনা সভা" },
+    { number: "১৫", title: "সঞ্চয় মেয়াদ ও বিনিয়োগ নীতি" },
+    { number: "১৬", title: "জমির মালিকানা সংক্রান্ত বিধান" },
+    { number: "১৭", title: "বিনিয়োগ সুযোগ অনুসন্ধান" },
+    { number: "১৮", title: "ব্যক্তিগত ব্যবহার নিষিদ্ধ" },
+    { number: "১৯", title: "প্রশাসনিক নিয়ন্ত্রণ" },
+    { number: "২০", title: "তহবিল নিষ্পত্তি" },
+    { number: "২১", title: "বিরোধ নিষ্পত্তি" },
+    { number: "২২", title: "নীতিমালা সংশোধন" },
+    { number: "২৩", title: "গ্রহণযোগ্যতা" },
+  ];
+
   return (
     <div className="app mx-auto p-4">
       <div className="nav">
@@ -150,6 +192,12 @@ const Dashboard = () => {
           onClick={() => showPage("history")}
         >
           History
+        </button>
+        <button
+          className={`nav-btn ${activePage === "policy" ? "active" : ""}`}
+          onClick={() => showPage("policy")}
+        >
+          Policy
         </button>
       </div>
 
@@ -354,6 +402,7 @@ const Dashboard = () => {
             <br />
             Requests need approval from the group admin.
           </div>
+
           <div className="field">
             <label>Amount (৳)</label>
             <input
@@ -370,6 +419,26 @@ const Dashboard = () => {
               value={withdrawReason}
               onChange={(e) => setWithdrawReason(e.target.value)}
             ></textarea>
+          </div>
+
+          <p className="text-xs text-gray-400 mb-2">Quick-fill templates</p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {templates.map((tpl, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setWithdrawAmount(tpl.amount);
+                  setWithdrawReason(tpl.reason);
+                }}
+                className={`text-sm px-4 py-1.5 rounded-full border transition-colors duration-150
+                  ${withdrawReason === tpl.reason
+                    ? "bg-emerald-50 border-emerald-700 text-emerald-900"
+                    : "bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200"
+                  }`}
+              >
+                {tpl.label}
+              </button>
+            ))}
           </div>
           <div className="field">
             <label>Your bKash / Nagad number</label>
@@ -431,6 +500,15 @@ const Dashboard = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Policy PAGE */}
+
+
+      <div className={`page ${activePage === "policy" ? "active" : ""}`} id="page-policy">
+        <div className="bg-white border-[0.5px] border-gray-200 rounded-[18px] py-4 px-[18px]">
+          <PolicySection/>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 // Routes.jsx
 import { lazy } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { permissionsDataList } from '../Data/permissions';
 import UserRegistration from '../pages/userpanel/UserRegistration';
 import UserForgetPassword from '../pages/userpanel/UserForgetPassword';
@@ -10,8 +10,14 @@ import DefaultLayout from '../layout/DefaultLayout';
 import NotFound from '../pages/NotFound';
 import UserPanel from '../layout/UserPanel';
 import Dashboard from '../pages/userpanel/Dashboard';
+import PolicySection from '../pages/userpanel/PolicySection';
+import PolicyDetail from '../pages/userpanel/PolicyDetail';
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Navigate to="/login" replace />,
+  },
   {
     path: '/forget_password',
     element: <UserForgetPassword />,
@@ -31,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <Dashboard/>,
+      },
+      {
+        path: 'policy/:slug', // Dynamic route for individual policy
+        element: <PolicyDetail />,
       },
 
     ],

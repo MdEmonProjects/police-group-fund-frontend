@@ -12,7 +12,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Hind Siliguri',sans-serif;background:transparent}
 
-.app{max-width:680px}
+.app{max-width:990px}
 
 /* NAV */
 .nav{display:flex;gap:6px;margin-bottom:14px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:99px;padding:4px}
