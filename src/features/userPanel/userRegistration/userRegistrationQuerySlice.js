@@ -19,9 +19,9 @@ export const userPanelRegistrationUser = createApi({
   tagTypes: ['UserPanelUser222', 'LoginUserPanel333'],
 
   endpoints: (builder) => ({
-    postUserPhone: builder.mutation({
+    postUserEmail: builder.mutation({
       query: (data) => ({
-        url: `check_user_phone`,
+        url: `check_user_email`,
         method: 'POST',
         body: data,
       }),
@@ -89,7 +89,7 @@ export const userPanelRegistrationUser = createApi({
 });
 
 export const {
-  usePostUserPhoneMutation,
+  usePostUserEmailMutation,
   usePostVerifyTokenMutation,
   usePostUserRegisterMutation,
   useGetSoftwareLinkUserPanelQuery,

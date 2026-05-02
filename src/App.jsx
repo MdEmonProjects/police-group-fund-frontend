@@ -8,6 +8,7 @@ import Loading from "./components/Loading/Loading";
 import SocketManager from "./components/socket/SocketManager";
 import { useSelector } from "react-redux";
 
+
 const bounce = cssTransition({
   enter: "animate__animated animate__bounceIn",
   exit: "animate__animated animate__bounceOut",

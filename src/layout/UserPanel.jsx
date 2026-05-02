@@ -55,7 +55,7 @@ export default function UserPanel({ children }) {
           'ashfdashfashfas ashfdiash fawfhasuif asfasihfas fasfh asifh as'
         );
         console.log(res);
-        if (res.id && res.phone_number) {
+        if (res.id && res.Email) {
           setIsValid(true);
         } else {
           localStorage.removeItem('user_panel_token');

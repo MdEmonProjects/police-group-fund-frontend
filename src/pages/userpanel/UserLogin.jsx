@@ -75,7 +75,7 @@ export default function UserLogin() {
   const onSubmit = async (data) => {
     try {
       const response = await loginUserPanel({
-        phone: data.phone,
+        Email: data.Email,
         password: data.password,
       });
 
@@ -121,10 +121,10 @@ export default function UserLogin() {
             className="max-w-sm mx-auto mt-6 w-full px-4"
           >
             <DefaultInput
-              registerKey={'phone'}
-              label={'Phone Number'}
-              placeholder={'Enter Phone Number'}
-              type="phone"
+              registerKey={'Email'}
+              label={'Email Number'}
+              placeholder={'Enter Email Number'}
+              type="email"
             />
             {/* <DefaultInput
               registerKey={'username'}
