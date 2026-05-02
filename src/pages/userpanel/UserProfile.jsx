@@ -67,14 +67,12 @@ export default function UserProfile() {
       {/* Profile Info */}
       <div className="flex flex-col items-center -mt-20">
         <img
-          src={
-            userDetails?.Image ? bufferConveter(userDetails?.Image) : 'logo.png'
-          }
+          src={`https://qmmsoft.com/avatar.png`}
           className="w-40 h-40 object-cover border-4 border-white rounded-full"
           alt="profile"
         />
         <div className="flex items-center space-x-2 mt-2">
-          <p className="text-2xl">{userDetails?.StudentName}</p>
+          <p className="text-2xl">User</p>
         </div>
         <p className="text-gray-700">
           {userDetails?.permanentPost}, {userDetails?.permanentVill}
@@ -82,18 +80,14 @@ export default function UserProfile() {
         {/* <p className="text-sm text-gray-500">New York, USA</p> */}
       </div>
 
-      <div className="my-1 flex flex-col  space-y-4 2xl:space-y-0 2xl:space-x-4">
+      <div className="my-1 flex flex-col  space-y-4 2xl:space-y-0 2xl:space-x-4 ">
         {/* LEFT PANEL */}
-        <div className="w-full flex flex-col mx-auto">
+        <div className="w-full flex flex-col mx-auto min-h-screen">
           {/* Personal Info */}
           <div className="flex-1 bg-white rounded-lg p-4 pt-2">
-            <h4 className="text-xl text-gray-900 font-bold">শিক্ষাথীর তথ্য</h4>
+            <h4 className="text-xl text-gray-900 font-bold">ইউজার তথ্য</h4>
             <ul className="mt-2 text-gray-700">
-              <li className="flex border-b py-2">
-                <span className="font-bold w-26"> ইউজার কোড</span>
-                <span className="mx-2">:</span>
-                <span className="text-gray-700">{userDetails?.UserCode}</span>
-              </li>
+        
               <li className="flex border-b py-2">
                 <span className="font-bold w-26">বাবার নাম</span>
                 <span className="mx-2">:</span>
@@ -102,21 +96,7 @@ export default function UserProfile() {
                 </span>
               </li>
 
-              <li className="flex border-b py-2">
-                <span className="font-bold w-26">বর্তমান শিক্ষাবর্ষ</span>
-                <span className="mx-2">:</span>
-
-                <span className="text-gray-700">
-                  {userDetails?.SessionName}
-                </span>
-              </li>
-              <li className="flex border-b py-2">
-                <span className="font-bold w-26">বর্তমান ক্লাস</span>
-
-                <span className="mx-2">:</span>
-
-                <span className="text-gray-700">{userDetails?.ClassName}</span>
-              </li>
+         
               <li className="flex border-b py-2">
                 <span className="font-bold w-26">মোবাইল</span>
                 <span className="mx-2">:</span>

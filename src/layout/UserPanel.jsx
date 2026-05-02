@@ -90,53 +90,53 @@ export default function UserPanel({ children }) {
     isError: isNotificationListError,
   } = useNotificationListQuery(currentSession);
 
-  const [
-    subscribeUser,
-    { isLoading, isError, isSuccess, data: newApplicationResponse },
-  ] = useSubscribeNotificationMutation();
+  // const [
+  //   subscribeUser,
+  //   { isLoading, isError, isSuccess, data: newApplicationResponse },
+  // ] = useSubscribeNotificationMutation();
 
-  useEffect(() => {
-    console.log('user usee effect');
+  // useEffect(() => {
+  //   console.log('user usee effect');
 
-    if ('Notification' in window) {
-      if (Notification.permission === 'default') {
-        setTimeout(async () => {
-          if (!('Notification' in window)) {
-            console.log('This browser does not support notifications.');
-            return;
-          }
+  //   if ('Notification' in window) {
+  //     if (Notification.permission === 'default') {
+  //       setTimeout(async () => {
+  //         if (!('Notification' in window)) {
+  //           console.log('This browser does not support notifications.');
+  //           return;
+  //         }
 
-          if (!('serviceWorker' in navigator)) {
-            console.log('Service workers are not supported by your browser.');
-            return;
-          }
-          const permission = Notification.permission;
-          if (permission === 'granted') {
-            console.log('Notifications already enabled.');
-            return;
-          }
+  //         if (!('serviceWorker' in navigator)) {
+  //           console.log('Service workers are not supported by your browser.');
+  //           return;
+  //         }
+  //         const permission = Notification.permission;
+  //         if (permission === 'granted') {
+  //           console.log('Notifications already enabled.');
+  //           return;
+  //         }
 
-          if (permission === 'denied') {
-            console.log('Notifications were previously denied.');
-            return;
-          }
-          try {
-            const register = await navigator.serviceWorker.register('/sw.js');
+  //         if (permission === 'denied') {
+  //           console.log('Notifications were previously denied.');
+  //           return;
+  //         }
+  //         try {
+  //           const register = await navigator.serviceWorker.register('/sw.js');
 
-            const subscription = await register.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: WEB_PUSH_PUBLIC_KEY,
-            });
-            subscribeUser(subscription);
+  //           const subscription = await register.pushManager.subscribe({
+  //             userVisibleOnly: true,
+  //             applicationServerKey: WEB_PUSH_PUBLIC_KEY,
+  //           });
+  //           subscribeUser(subscription);
 
-            console.log('Successfully subscribed for notifications!');
-          } catch (error) {
-            console.error('Failed to subscribe:', error);
-          }
-        }, 2000);
-      }
-    }
-  }, []);
+  //           console.log('Successfully subscribed for notifications!');
+  //         } catch (error) {
+  //           console.error('Failed to subscribe:', error);
+  //         }
+  //       }, 2000);
+  //     }
+  //   }
+  // }, []);
 
   const { data: sessionsData } = useGetSessionsQuery();
 

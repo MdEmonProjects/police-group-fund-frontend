@@ -3,12 +3,13 @@ import { get } from "react-hook-form";
 
 const API_URL = import.meta.env.VITE_SERVER_URL;
 
+
 export const dashboardSlice = createApi({
   reducerPath: "dashboard",
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}/api/users`,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("user_panel_token");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

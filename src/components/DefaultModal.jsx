@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../features/modal/modalSlice';
+import ClickOutside from './ClickOutside';
+import PaymentModal from '../view/accounting/PaymentModal';
 
 const DefaultModal = () => {
   const { isOpen, title, modalType, id } = useSelector((state) => state.modal);
@@ -35,6 +37,7 @@ const DefaultModal = () => {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth={2}
+
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -47,10 +50,7 @@ const DefaultModal = () => {
 
             {modalType && (
               <div className="body p-3">
-                lorem 20
-                #
-               
-               
+                {modalType === 'PAYMENT_MODEL' && <PaymentModal  />}
               </div>
             )}
           </div>

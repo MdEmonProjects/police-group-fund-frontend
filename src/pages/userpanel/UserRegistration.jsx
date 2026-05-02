@@ -103,12 +103,21 @@ export function StepOne({ phone, otpTimer, onResend, phoneNumber }) {
       </ol>
 
       {!phone && (
-        <DefaultInput
-          registerKey={'phone'}
-          label={'Phone Number'}
-          placeholder={'Enter Phone Number'}
-          type="phone"
-        />
+        <>
+          <DefaultInput
+            registerKey={'name'}
+            label={'Full Name'}
+            placeholder={'Enter Full Name'}
+            type="text"
+            require={'Name is required'}
+          />
+          <DefaultInput
+            registerKey={'phone'}
+            label={'Phone Number'}
+            placeholder={'Enter Phone Number'}
+            type="phone"
+          />
+        </>
       )}
 
       {phone && (
@@ -355,7 +364,7 @@ export default function UserRegistration() {
     <section className="h-[100svh] md:h-screen w-full flex items-center justify-center bg-gradient-to-b from-white to-blue-100 sm:px-6 lg:px-8 overflow-hidden">
       <div className="w-full h-full sm:h-auto md:max-w-md bg-[#ddeffe] flex flex-col">
         <div className="bg-[#007af7] p-6 sm:p-8 md:p-6 text-center sm:rounded-t-xl rounded-b-[40px] md:rounded-b-none relative min-h-[200px] md:min-h-[150px] flex flex-col items-center justify-center">
-        
+
         </div>
         <FormProvider {...methods}>
           <form

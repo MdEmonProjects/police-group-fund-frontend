@@ -2,8 +2,11 @@ import { Buffer } from 'buffer';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import PolicySection from './PolicySection';
+import { useCallback } from 'react';
+import { showModal } from '../../utils/ModalControlar';
+import { useGetTotalDonerQuery } from '../../features/userPanel/userLoginVerify/userloginVerifyQuerySlice';
 // import {
 //   useGeAllReportsQuery,
 //   useGetUserDetailsQuery,
@@ -15,11 +18,16 @@ const Dashboard = () => {
   const { schoolid } = useParams();
   const dispatch = useDispatch();
 
-  // useGetUserDetailsQuery();
+    const { data: doners = [] } = useGetTotalDonerQuery();
   // useGeAllReportsQuery();
 
   // const { schoolData } = useSelector((state) => state.studentResultPublicView);
 
+
+
+  useEffect(()=>{
+    console.log(doners)
+  }, [doners])
 
   const [activePage, setActivePage] = useState("home");
   const [balance, setBalance] = useState(0);
@@ -32,6 +40,13 @@ const Dashboard = () => {
   const [withdrawReason, setWithdrawReason] = useState("");
   const [withdrawNumber, setWithdrawNumber] = useState("");
 
+
+
+  const navigate = useNavigate();
+
+const goToProfile = (userId) => {
+  navigate(`/user/profile/${userId}`);
+};
   const members = [
     { name: "Rafiq (You)", loc: "Dhaka", paid: true, av: "রা", clr: "#9FE1CB", tc: "#085041" },
     { name: "Karim", loc: "Chittagong", paid: true, av: "কা", clr: "#FAC775", tc: "#633806" },
@@ -87,8 +102,9 @@ const Dashboard = () => {
   };
 
   const markPaid = () => {
-    setPaidStatus(true);
-    showToast("✅ ধন্যবাদ! Your ৳2,000 payment recorded.");
+    showModal("Teacher Register", "PAYMENT_MODEL");
+    // setPaidStatus(true);
+    // showToast("✅ ধন্যবাদ! Your ৳2,000 payment recorded.");
   };
 
   const submitRequest = () => {
@@ -337,23 +353,25 @@ const Dashboard = () => {
         <div className="members-card">
           <div className="sec-title">All Members — June 2025</div>
           <div>
-            {members.map((m, i) => (
-              <div key={i} className="member-row">
-                <div className="av" style={{ background: m.clr, color: m.tc }}>
+            {doners.map((m, i) => (
+              <div key={i} className="member-row cursor-pointer hover:bg-gray-100"  onClick={() => goToProfile(m.id)}>
+                <div className="av" style={{ background: m.clr, color: m.tc }} >
                   {m.av}
                 </div>
                 <div className="minfo">
-                  <div className="mname">{m.name}</div>
-                  <div className="msub">{m.loc}</div>
+                  <div className="mname">{m?.name}</div>
+                  <div className="msub">{m.phone_number}</div>
                 </div>
                 <span className={`pill ${m.paid ? "pill-green" : "pill-red"}`}>
-                  {m.paid ? "✅ Paid" : "⏳ Pending"}
+                  {/* {m.paid ? "✅ Paid" : "⏳ Pending"} */}
+                  ⏳ Pending
                 </span>
                 <div
                   className="mpaid"
-                  style={{ color: m.paid ? "#085041" : "#A32D2D", marginLeft: "8px" }}
+                  style={{ color: "#A32D2D", marginLeft: "8px" }}
                 >
-                  {m.paid ? "৳2,000" : "—"}
+                  {/* m.paid ? "#085041" :  */}
+                  ৳2,000
                 </div>
               </div>
             ))}

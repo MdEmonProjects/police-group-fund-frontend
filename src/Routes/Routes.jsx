@@ -12,6 +12,7 @@ import UserPanel from '../layout/UserPanel';
 import Dashboard from '../pages/userpanel/Dashboard';
 import PolicySection from '../pages/userpanel/PolicySection';
 import PolicyDetail from '../pages/userpanel/PolicyDetail';
+import UserProfile from '../pages/userpanel/UserProfile';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <Dashboard/>,
+      },
+         {
+        path: 'profile/:id',
+        element: <UserProfile/>,
       },
       {
         path: 'policy/:slug', // Dynamic route for individual policy
