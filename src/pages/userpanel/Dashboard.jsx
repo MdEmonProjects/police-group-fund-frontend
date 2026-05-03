@@ -7,10 +7,8 @@ import PolicySection from './PolicySection';
 import { useCallback } from 'react';
 import { showModal } from '../../utils/ModalControlar';
 import { useGetTotalDonerQuery } from '../../features/userPanel/userLoginVerify/userloginVerifyQuerySlice';
-// import {
-//   useGeAllReportsQuery,
-//   useGetUserDetailsQuery,
-// } from '../../features/userPanel/userInfo/userInfoQuerySlice';
+import { useGetUserDetailsQuery } from '../../features/userPanel/userInfo/userInfoQuerySlice';
+
 const isDashboardAllowed =
   import.meta.env.VITE_USERPANEL_DASHBOARD_PERMISSION === 'true';
 const Dashboard = () => {
@@ -19,6 +17,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
     const { data: doners = [] } = useGetTotalDonerQuery();
+    const { data: userDetails = {} } = useGetUserDetailsQuery();
   // useGeAllReportsQuery();
 
   // const { schoolData } = useSelector((state) => state.studentResultPublicView);
@@ -26,8 +25,10 @@ const Dashboard = () => {
 
 
   useEffect(()=>{
-    console.log(doners)
-  }, [doners])
+    console.log("==============================");
+    
+    console.log(userDetails)
+  }, [userDetails])
 
   const [activePage, setActivePage] = useState("home");
   const [balance, setBalance] = useState(0);
@@ -224,7 +225,7 @@ const goToProfile = (userId) => {
             <h2>
               বন্ধু তহবিল<small>Friends Mutual Fund · 12 Members</small>
             </h2>
-            <div className="badge-you">👤 You: Rafiq</div>
+            <Link to={"/user/profile"} className="badge-you">👤 You: {userDetails.name}</Link>
           </div>
           <div className="hero-nums">
             <div className="hn">
@@ -471,7 +472,7 @@ const goToProfile = (userId) => {
             📨 Submit Request
           </button>
         </div>
-        <div className="history-card">
+        <div className="history-card hidden">
           <div className="sec-title">Past Withdrawal Requests</div>
           <div className="tx-row">
             <div className="tx-icon" style={{ background: "#E1F5EE" }}>

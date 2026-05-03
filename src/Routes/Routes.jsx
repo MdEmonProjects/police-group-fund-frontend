@@ -13,6 +13,9 @@ import Dashboard from '../pages/userpanel/Dashboard';
 import PolicySection from '../pages/userpanel/PolicySection';
 import PolicyDetail from '../pages/userpanel/PolicyDetail';
 import UserProfile from '../pages/userpanel/UserProfile';
+import UserPersonalProfile from '../pages/userpanel/UserPersonalProfile';
+import Withdraw from '../pages/userpanel/Withdraw';
+import CancelMembership from '../pages/userpanel/CancelMembership';
 
 const router = createBrowserRouter([
   {
@@ -39,7 +42,19 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: <Dashboard/>,
       },
-         {
+      {
+        path: 'profile',
+        element: <UserPersonalProfile/>,
+      },
+      {
+        path: 'withdraw',
+        element: <Withdraw/>,
+      },
+      {
+        path: 'cancel_request',
+        element: <CancelMembership/>,
+      },
+      {
         path: 'profile/:id',
         element: <UserProfile/>,
       },

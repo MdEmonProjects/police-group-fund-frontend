@@ -23,7 +23,7 @@ export const userPanelUserInfo = createApi({
   ],
   endpoints: (builder) => ({
     getUserDetails: builder.query({
-      query: (sessionId) => `get_user_details?sessionId=${sessionId}`,
+      query: () => `get_user_details`,
     }),
     getUserSessionDetails: builder.query({
       query: (sessionId) => ({
