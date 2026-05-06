@@ -80,8 +80,8 @@ export default function UserPersonalProfile() {
         </p>
         {/* <p className="text-sm text-gray-500">New York, USA</p> */}
         <div className="flex gap-2 item-center justify-center mt-2">
-          <Link to="/user/withdraw" className="bg-rose-600 py-2 px-2 text-white rounded-[4px]" >Cancel Membership</Link>
-          <Link to="/user/cancel_request" className='py-2 px-2 text-white bg-sky-600 rounded-[4px]'>Withdraw</Link>
+          <Link to="/user/cancel_request" className="bg-rose-600 py-2 px-2 text-white rounded-[4px]" >Cancel Membership</Link>
+          <Link to="/user/withdraw" className='py-2 px-2 text-white bg-sky-600 rounded-[4px]'>Withdraw</Link>
         </div>
       </div>
 
