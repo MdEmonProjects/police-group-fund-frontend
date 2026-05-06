@@ -32,14 +32,10 @@ export const userPanelVerifyUser = createApi({
         body: data,
       }),
     }),
-    getTotalDoner: builder.query({
-      query: () => "total_user?usertype=5",
-    }),
   }),
 });
 
 export const {
   usePostLoginUserPanelMutation,
-  useVerifyUserPanelTokenMutation,
-  useGetTotalDonerQuery,
+  useVerifyUserPanelTokenMutation
 } = userPanelVerifyUser;

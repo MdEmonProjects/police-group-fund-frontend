@@ -13,6 +13,8 @@ import {
   usePostVerifyTokenMutation,
 } from '../../features/userPanel/userRegistration/userRegistrationQuerySlice';
 import Swal from 'sweetalert2';
+import { useGetDistrictsQuery, useGetPoliceStationsQuery } from '../../features/settings/settingsQuerySlice';
+import DefaultSelect from '../../components/Forms/DefaultSelect';
 // Multi-step hook
 export function useMultistepForm(steps) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -168,7 +170,12 @@ export function StepTwo() {
 }
 
 export function StepThree() {
-  const { register, formState: { errors } } = useFormContext();
+  const { register, watch, formState: { errors } } = useFormContext();
+  const DistrictID = watch('DistrictID');
+    const { data: districts = [] } = useGetDistrictsQuery();
+  const { data: policeStations = [] } = useGetPoliceStationsQuery(DistrictID, {
+    skip: !DistrictID,
+  });
 
   return (
     <>
@@ -180,6 +187,38 @@ export function StepThree() {
         require={"Phone Number Require"}
       />
       <DefaultInput
+        registerKey="FatherName"
+        label="Father's Name"
+        placeholder="Enter your Father's Name"
+        type="text"
+        require={"Father's Name Require"}
+      />
+       <DefaultInput
+        registerKey="MotherName"
+        label="Mother's Name"
+        placeholder="Enter your Mother's Name"
+        type="text"
+      />
+
+      <DefaultSelect
+        label="জেলা"
+        type="number"
+        options={districts}
+        registerKey="DistrictID"
+        valueField="DistrictID"
+        nameField="DistrictName"
+        require={"District Is Required"}
+      />
+      <DefaultSelect
+        label="থানা"
+        type="number"
+        options={policeStations}
+        registerKey="permanentPoliceStationID"
+        valueField="PoliceStationID"
+        nameField="PoliceStationName"
+        require={"Police Station Is Required"}
+      />
+      {/* <DefaultInput
         registerKey="district"
         label="District"
         placeholder="Enter your district"
@@ -192,7 +231,8 @@ export function StepThree() {
         placeholder="Enter your area"
         type="text"
         required
-      />
+      /> */}
+      
       <DefaultInput
         registerKey="address"
         label="Address"
@@ -226,7 +266,7 @@ export function StepThree() {
         label="Date of Birth"
         placeholder=""
         type="date"
-        required
+        required={"Date of Birth is required"}
       />
     </>
   );
@@ -313,12 +353,14 @@ export default function UserRegistration() {
         const res = await registerUserPanel({
           name: data.name,
           password: data.password,
-          District: data.district,
-          Area: data.area,
+          District: data.DistrictID,
+          Area: data.permanentPoliceStationID,
           Address: data.address,
           GenderID: data.genderID,
           DOB: data.dob,
           phone_number: data.phone_number,
+          FatherName: data.FatherName,
+          MotherName: data.MotherName,
         }).unwrap();
 
         localStorage.setItem('user_panel_token', res.token);

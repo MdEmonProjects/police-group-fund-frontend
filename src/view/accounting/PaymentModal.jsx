@@ -8,6 +8,7 @@ import Button from "../../components/Button/Button";
 import { bankNames } from "../../components/Data/bankname";
 import { closeModal } from "../../features/modal/modalSlice";
 import { useDispatch } from "react-redux";
+import { setPaidStatus } from "../../features/dashboard/dashboardSlice";
 const PaymentModal = () => {
     const methods = useForm();
     const { handleSubmit, watch, reset, register } = methods;
@@ -18,7 +19,7 @@ const PaymentModal = () => {
         try {
             // const response = await CodeSetting(payload).unwrap();
             //save payment data
-            // dispatch(setPaidStatus(true));
+            dispatch(setPaidStatus(true));
             // ✅ Success message
             toast.success("Payment saved successfully!", {
                 position: "top-right",

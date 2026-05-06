@@ -6,8 +6,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import PolicySection from './PolicySection';
 import { useCallback } from 'react';
 import { showModal } from '../../utils/ModalControlar';
-import { useGetTotalDonerQuery } from '../../features/userPanel/userLoginVerify/userloginVerifyQuerySlice';
-import { useGetUserDetailsQuery } from '../../features/userPanel/userInfo/userInfoQuerySlice';
+import { useGetTotalDonerQuery, useGetUserDetailsQuery } from '../../features/userPanel/userInfo/userInfoQuerySlice';
+import React from 'react';
 
 const isDashboardAllowed =
   import.meta.env.VITE_USERPANEL_DASHBOARD_PERMISSION === 'true';
@@ -16,17 +16,17 @@ const Dashboard = () => {
   const { schoolid } = useParams();
   const dispatch = useDispatch();
 
-    const { data: doners = [] } = useGetTotalDonerQuery();
-    const { data: userDetails = {} } = useGetUserDetailsQuery();
+  const { data: doners = [] } = useGetTotalDonerQuery();
+  const { data: userDetails = {} } = useGetUserDetailsQuery();
   // useGeAllReportsQuery();
 
   // const { schoolData } = useSelector((state) => state.studentResultPublicView);
 
 
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("==============================");
-    
+
     console.log(userDetails)
   }, [userDetails])
 
@@ -40,14 +40,15 @@ const Dashboard = () => {
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [withdrawReason, setWithdrawReason] = useState("");
   const [withdrawNumber, setWithdrawNumber] = useState("");
-
-
+  const currentPaidStatus = useSelector((state) => state.dashboard.paidStatus);
+  const entireState = useSelector((state) => state);
+  console.log("Full Redux state:", entireState);
 
   const navigate = useNavigate();
 
-const goToProfile = (userId) => {
-  navigate(`/user/profile/${userId}`);
-};
+  const goToProfile = (userId) => {
+    navigate(`/user/profile/${userId}`);
+  };
   const members = [
     { name: "Rafiq (You)", loc: "Dhaka", paid: true, av: "রা", clr: "#9FE1CB", tc: "#085041" },
     { name: "Karim", loc: "Chittagong", paid: true, av: "কা", clr: "#FAC775", tc: "#633806" },
@@ -223,7 +224,7 @@ const goToProfile = (userId) => {
         <div className="hero">
           <div className="hero-top">
             <h2>
-              বন্ধু তহবিল<small>Friends Mutual Fund · 12 Members</small>
+              বন্ধু তহবিল<small>Friends Mutual Fund · 12 Members  </small>
             </h2>
             <Link to={"/user/profile"} className="badge-you">👤 You: {userDetails.name}</Link>
           </div>
@@ -332,15 +333,22 @@ const goToProfile = (userId) => {
           <div className="contrib-label">Your fixed contribution this month</div>
           <div className="contrib-amount">৳2,000</div>
           <div className="ring-wrap">
-            <div className="ring r1"></div>
-            <div className="ring r2"></div>
-            <div className="ring r3"></div>
+            {
+              !currentPaidStatus ? (
+                <React.Fragment>
+                  <div className="ring r1"></div>
+                  <div className="ring r2"></div>
+                  <div className="ring r3"></div>
+                </React.Fragment>
+              ) : null
+            }
+
             <button
-              className="btn-contribute"
+              className={currentPaidStatus ? "" : "btn-contribute"}
               onClick={markPaid}
-              disabled={paidStatus}
+              disabled={currentPaidStatus}
             >
-              {paidStatus ? "🎉 Marked as Paid!" : "✅ আমি দিয়েছি — Mark as Paid"}
+              {currentPaidStatus ? "🎉 Marked as Paid!" : "✅ আমি দিয়েছি — Mark as Paid"}
             </button>
           </div>
           <div className="contrib-note">
@@ -355,7 +363,7 @@ const goToProfile = (userId) => {
           <div className="sec-title">All Members — June 2025</div>
           <div>
             {doners.map((m, i) => (
-              <div key={i} className="member-row cursor-pointer hover:bg-gray-100"  onClick={() => goToProfile(m.id)}>
+              <div key={i} className="member-row cursor-pointer hover:bg-gray-100" onClick={() => goToProfile(m.id)}>
                 <div className="av" style={{ background: m.clr, color: m.tc }} >
                   {m.av}
                 </div>
@@ -363,13 +371,13 @@ const goToProfile = (userId) => {
                   <div className="mname">{m?.name}</div>
                   <div className="msub">{m.phone_number}</div>
                 </div>
-                <span className={`pill ${m.paid ? "pill-green" : "pill-red"}`}>
-                  {/* {m.paid ? "✅ Paid" : "⏳ Pending"} */}
+                {/* <span className={`pill ${m.paid ? "pill-green" : "pill-red"}`}>
+          
                   ⏳ Pending
-                </span>
+                </span> */}
                 <div
                   className="mpaid"
-                  style={{ color: "#A32D2D", marginLeft: "8px" }}
+                  style={{ color: "#085041", marginLeft: "8px" }}
                 >
                   {/* m.paid ? "#085041" :  */}
                   ৳2,000
@@ -384,28 +392,28 @@ const goToProfile = (userId) => {
               <div className="scard-icon" style={{ background: "#E1F5EE" }}>
                 ✅
               </div>
-              <div className="scard-lbl">Paid</div>
+              <div className="scard-lbl">Collected</div>
             </div>
-            <div className="scard-val" style={{ color: "#085041" }}>
-              9 / 12
+            <div className="scard-val mt-4" style={{ color: "#085041" }}>
+              18,000 TK
             </div>
-            <div className="scard-sub" style={{ color: "#1D9E75" }}>
+            {/* <div className="scard-sub" style={{ color: "#1D9E75" }}>
               ৳18,000 collected
-            </div>
+            </div> */}
           </div>
           <div className="scard">
             <div className="scard-top">
               <div className="scard-icon" style={{ background: "#FCEBEB" }}>
                 ⏳
               </div>
-              <div className="scard-lbl">Pending</div>
+              <div className="scard-lbl">Withdraw</div>
             </div>
-            <div className="scard-val" style={{ color: "#A32D2D" }}>
-              3 / 12
+            <div className="scard-val mt-4" style={{ color: "#A32D2D" }}>
+              6,000 TK
             </div>
-            <div className="scard-sub" style={{ color: "#A32D2D" }}>
+            {/* <div className="scard-sub" style={{ color: "#A32D2D" }}>
               ৳6,000 remaining
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -527,7 +535,7 @@ const goToProfile = (userId) => {
 
       <div className={`page ${activePage === "policy" ? "active" : ""}`} id="page-policy">
         <div className="bg-white border-[0.5px] border-gray-200 rounded-[18px] py-4 px-[18px]">
-          <PolicySection/>
+          <PolicySection />
         </div>
       </div>
 

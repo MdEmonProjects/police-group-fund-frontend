@@ -47,7 +47,7 @@ export default function UserPersonalProfile() {
 
   const handleLogOut = () => {
     localStorage.removeItem('user_panel_token');
-    window.location.href = `/${schoolid}/login`;
+    window.location.href = `/login`;
   };
   if (isLoading) {
     return <UserProfileSkeleton />;
@@ -73,10 +73,10 @@ export default function UserPersonalProfile() {
           alt="profile"
         />
         <div className="flex items-center space-x-2 mt-2">
-          <p className="text-2xl">User</p>
+          <p className="text-2xl">{userDetails.name}</p>
         </div>
         <p className="text-gray-700">
-          {userDetails?.Address}, {userDetails?.Area}, {userDetails?.District}
+          {userDetails?.Address}, {userDetails?.areaInfo.PoliceStationName}, {userDetails?.districtInfo.DistrictName}
         </p>
         {/* <p className="text-sm text-gray-500">New York, USA</p> */}
         <div className="flex gap-2 item-center justify-center mt-2">
@@ -114,7 +114,7 @@ export default function UserPersonalProfile() {
                 <span className="mx-2">:</span>
 
                 <span className="text-gray-700">
-                  {translate(formatToDDMMYYYY(userDetails?.DateOfBirth))}
+                  {translate(formatToDDMMYYYY(userDetails?.DOB))}
                 </span>
               </li>
               <li className="flex border-b py-2">
@@ -122,23 +122,23 @@ export default function UserPersonalProfile() {
                 <span className="mx-2">:</span>
 
                 <span className="text-gray-700">
-                  {userDetails?.Area}
+                  {userDetails?.Address}
                 </span>
               </li>
-              <li className="flex border-b py-2">
-                <span className="font-bold w-26">ডাক</span>
-                <span className="mx-2">:</span>
+                {/* <li className="flex border-b py-2">
+                  <span className="font-bold w-26">ডাক</span>
+                  <span className="mx-2">:</span>
 
-                <span className="text-gray-700">
-                  {userDetails?.permanentPost}
-                </span>
-              </li>
+                  <span className="text-gray-700">
+                    {userDetails?.permanentPost}
+                  </span>
+                </li> */}
               <li className="flex border-b py-2">
                 <span className="font-bold w-26">থানা</span>
                 <span className="mx-2">:</span>
 
                 <span className="text-gray-700">
-                  {userDetails?.PoliceStationName}
+                  {userDetails?.areaInfo.PoliceStationName}
                 </span>
               </li>
               <li className="flex border-b py-2">
@@ -146,7 +146,7 @@ export default function UserPersonalProfile() {
                 <span className="mx-2">:</span>
 
                 <span className="text-gray-700">
-                  {userDetails?.DistrictName}
+                  {userDetails?.districtInfo.DistrictName}
                 </span>
               </li>
               <li className="flex border-b py-2">

@@ -95,7 +95,7 @@ export const settingsSlice = createApi({
       query: () => 'division',
     }),
     getDistricts: builder.query({
-      query: (id) => `district?divition_id=${id}`,
+      query: () => `district`,
     }),
     getPoliceStations: builder.query({
       query: (id) => `thana?district_id=${id}`,

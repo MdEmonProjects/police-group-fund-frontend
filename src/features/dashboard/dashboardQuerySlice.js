@@ -4,8 +4,8 @@ import { get } from "react-hook-form";
 const API_URL = import.meta.env.VITE_SERVER_URL;
 
 
-export const dashboardSlice = createApi({
-  reducerPath: "dashboard",
+export const dashboardQuerySlice = createApi({
+  reducerPath: "dashboardApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}/api/users`,
     prepareHeaders: (headers) => {
@@ -107,4 +107,4 @@ export const {
   usePostForgetPasswordMutation,
   usePostVerifyOTPMutation,
   usePostResetPasswordMutation,
-} = dashboardSlice;
+} = dashboardQuerySlice;

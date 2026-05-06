@@ -8,7 +8,44 @@ import { formatToDDMMYYYY } from '../../utils/dateFormat';
 import useTranslate from '../../utils/Translate';
 import Button from '../../components/Button/Button';
 export default function Withdraw() {
-  
+    const [paidCount, setPaidCount] = useState("0/12");
+    const [toast, setToast] = useState({ show: false, message: "" });
+    const [paidStatus, setPaidStatus] = useState(false);
+    const [withdrawAmount, setWithdrawAmount] = useState("");
+    const [withdrawReason, setWithdrawReason] = useState("");
+    const [withdrawNumber, setWithdrawNumber] = useState("");
+
+    const templates = [
+        {
+            label: "Application 1 — Medical",
+            amount: "15000",
+            reason: "Medical emergency — need funds urgently for hospital treatment and medicine costs.",
+        },
+        {
+            label: "Application 2 — House repair",
+            amount: "10000",
+            reason: "House repair — roof damage after recent storm, need funds for urgent repair work.",
+        },
+    ];
+    const showToast = (message) => {
+        setToast({ show: true, message });
+        setTimeout(() => setToast({ show: false, message: "" }), 2800);
+    };
+    const submitRequest = () => {
+        const amt = parseInt(withdrawAmount);
+        if (!amt || amt < 100) {
+            showToast("⚠️ Please enter a valid amount");
+            return;
+        }
+        if (amt > 18000) {
+            showToast("⚠️ Exceeds your limit of ৳18,000");
+            return;
+        }
+        showToast("📨 Request sent! Admin will review shortly.");
+        setWithdrawAmount("");
+        setWithdrawReason("");
+        setWithdrawNumber("");
+    };
     return (
         <div>
             <div className="withdraw-card">
@@ -98,6 +135,7 @@ export default function Withdraw() {
                     </div>
                 </div>
             </div>
+            <div className={`toast ${toast.show ? "show" : ""}`}>{toast.message}</div>
         </div>
     );
 }

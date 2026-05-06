@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import { classSlice } from "../features/class/classQuerySlice";
-import classReducer from "../features/class/classSlice";
-import { dashboardSlice } from "../features/dashboard/dashboardQuerySlice";
+import classReducer from "../features/class/classSlice"; 
+import dashboardReducer from "../features/dashboard/dashboardSlice"; 
+import { dashboardQuerySlice } from "../features/dashboard/dashboardQuerySlice";
 import { examSlice } from "../features/exam/examQuerySlice";
 import { feeCollectionSlice } from "../features/feeCollection/feeCollectionSlice";
 import { helpQuerySlice } from "../features/help/helpQuerySlice";
@@ -50,6 +51,7 @@ const store = configureStore({
     sideBar: sidebarReducer,
     smsSuccessError: smsReducersSlice,
     sessionChange: sessionChangeReducer,
+    dashboard: dashboardReducer,
     [feeCollectionSlice.reducerPath]: feeCollectionSlice.reducer,
     [onlineAdmissionSlice.reducerPath]: onlineAdmissionSlice.reducer,
     [teachersSlice.reducerPath]: teachersSlice.reducer,
@@ -58,7 +60,7 @@ const store = configureStore({
     [monthSlice.reducerPath]: monthSlice.reducer,
     [monthListSlice.reducerPath]: monthListSlice.reducer,
     [settingsSlice.reducerPath]: settingsSlice.reducer,
-    [dashboardSlice.reducerPath]: dashboardSlice.reducer,
+    [dashboardQuerySlice.reducerPath]: dashboardQuerySlice.reducer,
     [userReportsSlice.reducerPath]: userReportsSlice.reducer,
     [sessionSlice.reducerPath]: sessionSlice.reducer,
     [classSlice.reducerPath]: classSlice.reducer,
@@ -87,7 +89,7 @@ const store = configureStore({
       .concat(monthSlice.middleware)
       .concat(monthListSlice.middleware)
       .concat(settingsSlice.middleware)
-      .concat(dashboardSlice.middleware)
+      .concat(dashboardQuerySlice.middleware)
       .concat(userReportsSlice.middleware)
       .concat(classSlice.middleware)
       .concat(userTypeSlice.middleware)

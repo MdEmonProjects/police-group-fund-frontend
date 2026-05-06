@@ -195,6 +195,12 @@ export const userPanelUserInfo = createApi({
         url: `/residential_userpanel`,
       }),
     }),
+    getTotalDoner: builder.query({
+      query: () => "get_all_user_details",
+    }),
+    getUserDetailsByID: builder.query({
+      query: (id) => `get_user_details_by_id/${id}`,
+    }),
   }),
 });
 
@@ -229,5 +235,7 @@ export const {
   useGetUserNoticeForUserPanelQuery,
   useGetResidentialsUserPanelQuery,
   useGetFeeLandBySessionIdUserPanelQuery,
-  useGetUserSessionDetailsQuery
+  useGetUserSessionDetailsQuery,
+  useGetTotalDonerQuery,
+  useGetUserDetailsByIDQuery,
 } = userPanelUserInfo;
