@@ -16,6 +16,7 @@ import UserProfile from '../pages/userpanel/UserProfile';
 import UserPersonalProfile from '../pages/userpanel/UserPersonalProfile';
 import Withdraw from '../pages/userpanel/Withdraw';
 import CancelMembership from '../pages/userpanel/CancelMembership';
+import UserProfileEdit from '../pages/userpanel/UserProfileEdit';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <UserPersonalProfile/>,
+      },
+      {
+        path: 'profile/edit',
+        element: <UserProfileEdit/>,
       },
       {
         path: 'withdraw',

@@ -9,7 +9,6 @@ import Button from '../../components/Button/Button';
 export default function UserPersonalProfile() {
   const [openSettings, setOpenSettings] = useState(false);
   const settingsRef = useRef();
-  const { schoolid } = useParams();
   const translate = useTranslate();
 
   const currentSession = useSelector(

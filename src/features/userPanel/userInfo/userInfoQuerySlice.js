@@ -98,6 +98,7 @@ export const userPanelUserInfo = createApi({
       }),
       keepUnusedDataFor: 0, // Optional: auto refetch on param change
     }),
+
     getExamRoutineView: builder.query({
       query: ({ sessionId, examId }) => ({
         url: `/get_exam_routine`,
@@ -108,6 +109,7 @@ export const userPanelUserInfo = createApi({
       }),
       keepUnusedDataFor: 0, // Optional: auto refetch on param change
     }),
+
     getSessionUserPanel: builder.query({
       query: () => ({
         url: `/academic_session_user_panel`,
@@ -119,6 +121,7 @@ export const userPanelUserInfo = createApi({
         url: `/exam_list_user_panel`,
       }),
     }),
+
     getHomeWorksUserPanel: builder.query({
       query: ({ SessionID, DateValue }) => ({
         url: 'home_works',
@@ -126,6 +129,7 @@ export const userPanelUserInfo = createApi({
       }),
       providesTags: ['HomeWorks'],
     }),
+
     getHomeWorkStudyTracksHistoryUserPanel: builder.query({
       query: ({ SessionID, range }) => ({
         url: 'home_work_study_track_history',
@@ -201,6 +205,18 @@ export const userPanelUserInfo = createApi({
     getUserDetailsByID: builder.query({
       query: (id) => `get_user_details_by_id/${id}`,
     }),
+
+
+    updateUserProfile: builder.mutation({
+      query: (data) => ({
+        url: `update_user_info`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
+
+
   }),
 });
 
@@ -238,4 +254,5 @@ export const {
   useGetUserSessionDetailsQuery,
   useGetTotalDonerQuery,
   useGetUserDetailsByIDQuery,
+  useUpdateUserProfileMutation,
 } = userPanelUserInfo;
