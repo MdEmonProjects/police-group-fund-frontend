@@ -187,18 +187,13 @@ export function StepThree() {
         require={"Phone Number Require"}
       />
       <DefaultInput
-        registerKey="FatherName"
-        label="Father's Name"
-        placeholder="Enter your Father's Name"
-        type="text"
-        require={"Father's Name Require"}
+        registerKey="Nid"
+        label="NID"
+        placeholder="Enter your NID Number"
+        type="number"
+        require={"NID Require"}
       />
-       <DefaultInput
-        registerKey="MotherName"
-        label="Mother's Name"
-        placeholder="Enter your Mother's Name"
-        type="text"
-      />
+ 
 
       <DefaultSelect
         label="জেলা"
@@ -359,8 +354,7 @@ export default function UserRegistration() {
           GenderID: data.genderID,
           DOB: data.dob,
           phone_number: data.phone_number,
-          FatherName: data.FatherName,
-          MotherName: data.MotherName,
+          Nid: data.Nid,
         }).unwrap();
 
         localStorage.setItem('user_panel_token', res.token);
@@ -372,7 +366,7 @@ export default function UserRegistration() {
   }
 
   return (
-    <section className="h-[100svh] md:h-screen w-full flex items-center justify-center bg-gradient-to-b from-white to-blue-100 sm:px-6 lg:px-8 overflow-hidden">
+    <section className=" w-full  bg-gradient-to-b from-white to-blue-100 sm:px-6 lg:px-8 min-h-screen">
       <div className="w-full h-full sm:h-auto md:max-w-md bg-[#ddeffe] flex flex-col">
         {/* Header */}
         <div className="bg-[#007af7] p-6 sm:p-8 md:p-6 text-center sm:rounded-t-xl rounded-b-[40px] md:rounded-b-none relative min-h-[150px] flex flex-col items-center justify-center">

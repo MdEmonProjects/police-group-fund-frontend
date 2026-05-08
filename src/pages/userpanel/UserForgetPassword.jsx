@@ -49,7 +49,7 @@ export function useMultistepForm(steps) {
 }
 
 // Step 1 — Placeholder Payment
-export function StepOne({ phone, otpTimer, onResend }) {
+export function StepOne({ email, otpTimer, onResend }) {
   return (
     <>
       {/* Step indicator ... */}
@@ -102,23 +102,23 @@ export function StepOne({ phone, otpTimer, onResend }) {
         </li>{' '}
       </ol>
 
-      {!phone && (
+      {!email && (
         <DefaultInput
-          registerKey={'phone'}
-          label={'Phone Number'}
-          placeholder={'Enter Phone Number'}
-          type="text"
+          registerKey={'email'}
+          label={'Email Address'}
+          placeholder={'Enter Email Address'}
+          type="email"
         />
       )}
 
-      {phone && (
+      {email && (
         <div className="">
           <p className="text-[#d6d6d6] text-[18px] bg-gray-400 block border border-[#d6d6d6] rounded-[5px] py-1 pl-2">
-            {phone}
+            {email}
           </p>
 
           <p className="text-blue-700 text-sm mt-1">
-            উপরের নাম্বারে OTP পাঠানো হয়েছে। Time left:{' '}
+            উপরের ইমেইলে OTP পাঠানো হয়েছে। Time left:{' '}
             <strong>{otpTimer}s</strong>
           </p>
 
@@ -224,7 +224,7 @@ export function StepTwo() {
 
 // Full Multi-Step Form
 export default function UserForgetPassword() {
-  const { schoolData } = useSelector((state) => state.studentResultPublicView);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -254,14 +254,14 @@ export default function UserForgetPassword() {
     getValues,
   } = methods;
 
-  const phone = methods.watch('phone');
+  const email = methods.watch('email');
   const { data } = useGetSoftwareLinkUserPanelQuery();
   const mobileAppInstallLink = data?.MobileAppInstall;
 
   const { steps, step, currentStepIndex, isFirstStep, isLastStep, next, back } =
     useMultistepForm([<StepOne />, <StepTwo />]);
 
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
   const [otpTimer, setOtpTimer] = useState(0);
   useEffect(() => {
     if (otpTimer <= 0) return;
@@ -275,26 +275,26 @@ export default function UserForgetPassword() {
 
 
 
-  async function requestOtp(phone) {
-    const targetPhone = phone || phoneNumber;
-    if (!targetPhone) {
-      throw new Error('Phone number is required');
+  async function requestOtp(email) {
+    const targetEmail = email || emailAddress;
+    if (!targetEmail) {
+      throw new Error('Email address is required');
     }
 
     const res = await startForgetPass({
-      phone: targetPhone,
+      email: targetEmail,
     }).unwrap();
 
-    setPhoneNumber(res.phone);
+    setEmailAddress(res.email);
     setOtpTimer(300);
   }
 
   async function onSubmit(data) {
-    const targetPhone = data.phone || phoneNumber;
+    const targetEmail = data.email || emailAddress;
     if (currentStepIndex === 0) {
       if (!data.otp) {
         try {
-          await requestOtp(targetPhone);
+          await requestOtp(targetEmail);
         } catch (error) {
           console.log(error);
 
@@ -310,7 +310,7 @@ export default function UserForgetPassword() {
         }
       } else {
         const res = await verifyUserPanelToken({
-          phone: targetPhone,
+          email: targetEmail,
           otp: data.otp,
         }).unwrap();
         localStorage.setItem('user_panel_token', res.token);
@@ -324,8 +324,9 @@ export default function UserForgetPassword() {
       console.log(res, 'response');
 
       if (res.data) {
-        // localStorage.setItem('user_panel_token', res.data.token);
-        // navigate(`/${schoolid}/login`);
+        localStorage.setItem('user_panel_token', res.data.token);
+        navigate(`/login`);
+
       } else {
         console.log(res.error.data.error);
 
@@ -348,16 +349,7 @@ export default function UserForgetPassword() {
   return (
     <section className="h-[100svh] md:h-screen w-full flex items-center justify-center bg-gradient-to-b from-white to-blue-100 sm:px-6 lg:px-8 overflow-hidden">
       <div className="w-full h-full sm:h-auto md:max-w-md bg-[#ddeffe] flex flex-col">
-        <div className="bg-[#007af7] p-6 sm:p-8 md:p-6 text-center sm:rounded-t-xl rounded-b-[40px] md:rounded-b-none relative min-h-[200px] md:min-h-[150px] flex flex-col items-center justify-center">
-          <img
-            src={bufferConveter(schoolData?.Logo?.data)}
-            alt="Logo"
-            className="mx-auto w-[80px] md:w-[80px] mb-2"
-          />
-          <p className="text-white text-[18px] md:text-[30px] mt-2 md:mt-3 font-SolaimanLipi leading-[40px]">
-            {schoolData?.InstitutionName}
-          </p>
-        </div>
+
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -376,10 +368,10 @@ export default function UserForgetPassword() {
               >
                 {index === 0 ? (
                   <StepOne
-                    phone={phoneNumber}
+                    email={emailAddress}
                     otpTimer={otpTimer}
                     onResend={() =>
-                      requestOtp(getValues('phone') || phoneNumber)
+                      requestOtp(getValues('email') || emailAddress)
                     }
                   />
                 ) : (

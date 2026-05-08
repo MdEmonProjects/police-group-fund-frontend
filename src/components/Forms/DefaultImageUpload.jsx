@@ -10,6 +10,7 @@ const DefaultImageUpload = ({
   image,
   previewUrl,
   setPreviewUrl,
+  imagePreiewClass,
 }) => {
   const {
     register,
@@ -18,13 +19,12 @@ const DefaultImageUpload = ({
   } = useFormContext();
   const translate = useTranslate();
 
-  // পূর্বে থাকা image থাকলে form value এ সেট করো
+  // Show existing image preview without storing URL in form value
   useEffect(() => {
-    if (image) {
+    if (image && !previewUrl) {
       setPreviewUrl(image);
-      setValue(registerKey, image, { shouldValidate: true });
     }
-  }, [image, registerKey, setValue, setPreviewUrl]);
+  }, [image, previewUrl, setPreviewUrl]);
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -105,7 +105,7 @@ const DefaultImageUpload = ({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className="relative w-full rounded-lg overflow-hidden border-2 border-dashed border-gray-300 cursor-pointer bg-gray-50 flex flex-col items-center justify-center transition-all duration-200 hover:border-blue-400 hover:bg-blue-50"
+          className={`relative rounded-lg overflow-hidden border-2 border-dashed border-gray-300 cursor-pointer bg-gray-50 flex flex-col items-center justify-center transition-all duration-200 hover:border-blue-400 hover:bg-blue-50 ${imagePreiewClass}`}
         >
           {previewUrl || image ? (
             <>

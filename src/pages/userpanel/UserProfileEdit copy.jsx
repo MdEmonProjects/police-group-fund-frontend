@@ -5,9 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useGetUserDetailsQuery, useUpdateUserProfileMutation } from '../../features/userPanel/userInfo/userInfoQuerySlice';
 import { formatToDDMMYYYY } from '../../utils/dateFormat';
 import useTranslate from '../../utils/Translate';
-import DefaultMultiImageUpload from '../../components/Forms/DefaultMultiImageUpload';
 import { FormProvider, useForm } from 'react-hook-form';
-import { usePostUserMultipleImagesUploadMutation } from '../../features/dashboard/dashboardQuerySlice';
 import DefaultImageUpload from '../../components/Forms/DefaultImageUpload';
 import { useGetDistrictsQuery, useGetPoliceStationsQuery } from '../../features/settings/settingsQuerySlice';
 import DefaultInput from '../../components/Forms/DefaultInput';
@@ -23,18 +21,28 @@ export default function UserProfileEdit() {
   const { schoolid } = useParams();
   const translate = useTranslate();
 
-  const [profileImage, setprofileImage] = useState(null);
-  const [profileUrl, setProfileUrl] = useState(null);
-
   const [profilePreviewUrl, setProfilePreviewUrl] = useState(null);
   const [nidFrontPreviewUrl, setNidFrontPreviewUrl] = useState(null);
   const [nidBackPreviewUrl, setNidBackPreviewUrl] = useState(null);
+
   const {
     data: userDetails,
     isLoading,
     isError: isuserDetailsError,
     isSuccess
   } = useGetUserDetailsQuery();
+
+  const getImageUrl = (path) => {
+    if (!path) return null;
+    if (path.startsWith('http://') || path.startsWith('https://')) return path;
+    if (path.startsWith('//')) return `${window.location.protocol}${path}`;
+    if (path.startsWith('/')) {
+      if (API_URL) return `${API_URL.replace(/\/$/, '')}${path}`;
+      return `${window.location.origin}${path}`;
+    }
+    if (API_URL) return `${API_URL.replace(/\/$/, '')}/${path}`;
+    return path;
+  };
 
   const DistrictID = watch('DistrictID');
   const { data: districts = [] } = useGetDistrictsQuery();
@@ -48,43 +56,27 @@ export default function UserProfileEdit() {
   useEffect(() => {
     if (userDetails) {
       setValue('DistrictID', userDetails?.District);
-      setProfilePreviewUrl( `${API_URL}${userDetails?.profile_image}` );
-      setNidFrontPreviewUrl( `${API_URL}${userDetails?.NidFront}` );
-      setNidBackPreviewUrl( `${API_URL}${userDetails?.NidBack}` );
+      setProfilePreviewUrl(getImageUrl(userDetails?.profile_image));
+      setNidFrontPreviewUrl(getImageUrl(userDetails?.NidFront));
+      setNidBackPreviewUrl(getImageUrl(userDetails?.NidBack));
     }
-  }, [userDetails])
+  }, [userDetails, setValue]);
 
   useEffect(() => {
     if (userDetails?.Area) {
       setValue('permanentPoliceStationID', userDetails.Area);
     }
-  }, [policeStations])
+  }, [policeStations, setValue, userDetails]);
 
   // Close on outside click
 
   const onSubmit = async (formData) => {
-    const file = formData.profile_image;
-
-    // if (!file || file.length === 0) {
-    //   Swal.fire({
-    //     icon: "warning",
-    //     title: "No Image Selected",
-    //     text: "Please select at least one image before submitting.",
-    //   });
-    //   return;
-    // }
-
     const formDataToSend = new FormData();
-
-    // Object.keys(formData).forEach((key) => {
-    //   formDataToSend.append(key, formData[key]);
-    // });
-    // formDataToSend.append("profile_image", file);
-
-
+    console.log(formData);
+    
     Object.entries(formData).forEach(([key, value]) => {
       const isImageField = ['profile_image', 'nid_font_image', 'nid_back_image'].includes(key);
-
+      
       // Only include File objects for image fields, skip strings/URLs
       if (value instanceof File) {
         formDataToSend.append(key, value);
@@ -92,7 +84,6 @@ export default function UserProfileEdit() {
         formDataToSend.append(key, value);
       }
     });
-
 
     try {
       const response = await updateUserInfo(formDataToSend).unwrap();
@@ -140,7 +131,6 @@ export default function UserProfileEdit() {
             setPreviewUrl={setProfilePreviewUrl}
             previewUrl={profilePreviewUrl}
             imagePreiewClass="w-full h-[200px] object-contain mx-auto"
-        
           />
           <DefaultImageUpload
             label="Upload NID Front Image"
@@ -158,7 +148,6 @@ export default function UserProfileEdit() {
             previewUrl={nidBackPreviewUrl}
             imagePreiewClass="w-full h-[200px] object-contain mx-auto"
           />
-
           <div className="my-1 flex flex-col  space-y-4 2xl:space-y-0 2xl:space-x-4 min-h-screen">
             {/* LEFT PANEL */}
             <div className="w-full flex flex-col mx-auto">

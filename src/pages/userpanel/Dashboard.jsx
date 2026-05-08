@@ -226,7 +226,7 @@ const Dashboard = () => {
             <h2>
               বন্ধু তহবিল<small>Friends Mutual Fund · 12 Members  </small>
             </h2>
-            <Link to={"/user/profile"} className="badge-you">👤 You: {userDetails.name}</Link>
+            <Link to={"/user/profile"} className="badge-you">👤 You: {userDetails?.name}</Link>
           </div>
           <div className="hero-nums">
             <div className="hn">

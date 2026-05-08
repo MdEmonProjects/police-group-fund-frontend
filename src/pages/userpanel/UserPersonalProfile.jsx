@@ -6,6 +6,7 @@ import { useGetUserDetailsQuery } from '../../features/userPanel/userInfo/userIn
 import { formatToDDMMYYYY } from '../../utils/dateFormat';
 import useTranslate from '../../utils/Translate';
 import Button from '../../components/Button/Button';
+const API_URL = import.meta.env.VITE_SERVER_URL;
 export default function UserPersonalProfile() {
   const [openSettings, setOpenSettings] = useState(false);
   const settingsRef = useRef();
@@ -67,12 +68,21 @@ export default function UserPersonalProfile() {
       {/* Profile Info */}
       <div className="flex flex-col items-center -mt-20">
         <img
-          src={`https://qmmsoft.com/avatar.png`}
+          src={`${userDetails?.profile_image ? `${API_URL}${userDetails?.profile_image}` : 'https://qmmsoft.com/avatar.png'}`}
           className="w-40 h-40 object-cover border-4 border-white rounded-full"
           alt="profile"
         />
         <div className="flex items-center space-x-2 mt-2">
-          <p className="text-2xl">{userDetails.name}</p>
+          <p className="text-2xl flex items-center gap-[2px]">{userDetails.name}
+            <Link to={"/user/profile/edit"}>
+              <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+                <path d="M16 5l3 3" />
+              </svg>
+            </Link>
+          </p>
         </div>
         <p className="text-gray-700">
           {userDetails?.Address}, {userDetails?.areaInfo.PoliceStationName}, {userDetails?.districtInfo.DistrictName}
@@ -91,16 +101,16 @@ export default function UserPersonalProfile() {
           <div className="flex-1 bg-white rounded-lg p-4 pt-2">
             <h4 className="text-xl text-gray-900 font-bold">ইউজার তথ্য</h4>
             <ul className="mt-2 text-gray-700">
-        
+
               <li className="flex border-b py-2">
-                <span className="font-bold w-26">বাবার নাম</span>
+                <span className="font-bold w-26"> NID</span>
                 <span className="mx-2">:</span>
                 <span className="text-gray-700">
-                  {userDetails?.FatherName}
+                  {userDetails?.Nid}
                 </span>
               </li>
 
-         
+
               <li className="flex border-b py-2">
                 <span className="font-bold w-26">মোবাইল</span>
                 <span className="mx-2">:</span>
@@ -124,7 +134,7 @@ export default function UserPersonalProfile() {
                   {userDetails?.Address}
                 </span>
               </li>
-                {/* <li className="flex border-b py-2">
+              {/* <li className="flex border-b py-2">
                   <span className="font-bold w-26">ডাক</span>
                   <span className="mx-2">:</span>
 
@@ -153,11 +163,10 @@ export default function UserPersonalProfile() {
                 <span className="mx-2">:</span>
 
                 <span
-                  className={`${
-                    userDetails?.UserAction === 1
+                  className={`${userDetails?.UserAction === 1
                       ? 'font-bold text-green-600'
                       : 'text-red-500'
-                  }`}
+                    }`}
                 >
                   {userDetails?.UserAction === 1 ? 'Active' : 'Inactive'}
                 </span>

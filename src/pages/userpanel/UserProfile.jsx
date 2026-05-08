@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useGetUserDetailsByIDQuery, useGetUserDetailsQuery } from '../../features/userPanel/userInfo/userInfoQuerySlice';
 import { formatToDDMMYYYY } from '../../utils/dateFormat';
 import useTranslate from '../../utils/Translate';
+const API_URL = import.meta.env.VITE_SERVER_URL;
 export default function UserProfile() {
   const [openSettings, setOpenSettings] = useState(false);
   const settingsRef = useRef();
@@ -67,7 +68,7 @@ export default function UserProfile() {
       {/* Profile Info */}
       <div className="flex flex-col items-center -mt-20">
         <img
-          src={`https://qmmsoft.com/avatar.png`}
+           src={`${ userDetails?.profile_image ? `${API_URL}${userDetails?.profile_image}` : 'https://qmmsoft.com/avatar.png'}`}
           className="w-40 h-40 object-cover border-4 border-white rounded-full"
           alt="profile"
         />
@@ -89,10 +90,10 @@ export default function UserProfile() {
             <ul className="mt-2 text-gray-700">
         
               <li className="flex border-b py-2">
-                <span className="font-bold w-26">বাবার নাম</span>
+                <span className="font-bold w-26"> NID</span>
                 <span className="mx-2">:</span>
                 <span className="text-gray-700">
-                  {userDetails?.FatherName}
+                  {userDetails?.Nid}
                 </span>
               </li>
 
