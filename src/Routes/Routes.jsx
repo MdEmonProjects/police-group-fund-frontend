@@ -17,6 +17,9 @@ import UserPersonalProfile from '../pages/userpanel/UserPersonalProfile';
 import Withdraw from '../pages/userpanel/Withdraw';
 import CancelMembership from '../pages/userpanel/CancelMembership';
 import UserProfileEdit from '../pages/userpanel/UserProfileEdit';
+import Analytics from '../pages/admin/Analytics';
+import PaymentRequest from '../pages/admin/PaymentRequest';
+import AccountRequest from '../pages/admin/AccountRequest';
 
 const router = createBrowserRouter([
   {
@@ -41,35 +44,64 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'dashboard',
-        element: <Dashboard/>,
+        element: <Dashboard />,
       },
       {
         path: 'profile',
-        element: <UserPersonalProfile/>,
+        element: <UserPersonalProfile />,
       },
       {
         path: 'profile/edit',
-        element: <UserProfileEdit/>,
+        element: <UserProfileEdit />,
       },
       {
         path: 'withdraw',
-        element: <Withdraw/>,
+        element: <Withdraw />,
       },
       {
         path: 'cancel_request',
-        element: <CancelMembership/>,
+        element: <CancelMembership />,
       },
       {
         path: 'profile/:id',
-        element: <UserProfile/>,
+        element: <UserProfile />,
       },
       {
         path: 'policy/:slug', // Dynamic route for individual policy
         element: <PolicyDetail />,
       },
 
+
+      {
+        path: 'admin',
+        element: <PrivateRoute />,
+        children: [
+          {
+            element: <DefaultLayout />,
+            children: [
+              {
+                path: 'dashboard',
+                element: <Analytics />,
+              },
+              {
+                path: 'payment-request',
+                element: <PaymentRequest />,
+              },
+              {
+                path: 'account-request',
+                element: <AccountRequest />,
+              },
+
+
+            ],
+          },
+        ],
+      },
+
     ],
   },
+
+
 
   {
     path: '*',

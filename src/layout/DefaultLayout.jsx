@@ -18,15 +18,15 @@ const DefaultLayout = () => {
   const location = useLocation();
 
   const sidebarOpen = useSelector((state) => state.sideBar?.isOpen ?? false);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const [verifyToken] = useVerifyUserPanelTokenMutation();
-  const token = useSelector((state) => state.auth.token);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // const [verifyToken] = useVerifyUserPanelTokenMutation();
+  // const token = useSelector((state) => state.auth.token);
   const pageName = useSelector((state) => state.auth.pageName);
 
   const { isOpen } = useSelector((state) => state.modal);
   const { user } = useSelector((state) => state.auth);
   const permissionType = user?.permissionType;
-  const school_id = user?.schoolId ? Number(user.schoolId) : null;
+  // const school_id = user?.schoolId ? Number(user.schoolId) : null;
 
   // Madrasah list fetch
   useEffect(() => {
@@ -36,22 +36,22 @@ const DefaultLayout = () => {
 
 
   // ✅ Token verification on route change
-  useEffect(() => {
-    if (token) {
-      dispatch(verifyUser(token))
-        .unwrap()
-        .catch(() => {
-          // dispatch(logout());
-          // navigate("/login");
-          console.log("server");
+  // useEffect(() => {
+  //   if (token) {
+  //     dispatch(verifyUser(token))
+  //       .unwrap()
+  //       .catch(() => {
+  //         // dispatch(logout());
+  //         // navigate("/login");
+  //         console.log("server");
           
-        });
-    } else {
-      console.log("notoken");
+  //       });
+  //   } else {
+  //     console.log("notoken");
       
-      // navigate("/login");
-    }
-  }, [dispatch, navigate, token, location.pathname]);
+  //     // navigate("/login");
+  //   }
+  // }, [dispatch, navigate, token, location.pathname]);
 
 
   // ✅ Handle multi-tab logout
