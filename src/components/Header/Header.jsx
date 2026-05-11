@@ -36,7 +36,7 @@ const Header = () => {
     }
   }, [institutionInfo]);
 
-  useEffect(() =>{
+  useEffect(() => {
     console.log(softwareDetails);
 
   }, [softwareDetails])
@@ -74,12 +74,12 @@ const Header = () => {
 
         <div className="flex flex-row gap-2">
 
-            <button
-              onClick={handleOpenModal}
-              className="text-white bg-cyan-500 hover:bg-cyan-600 font-medium rounded-full text-xs px-4 py-1.5"
-            >
-              Pay now
-            </button>
+          <button
+            onClick={handleOpenModal}
+            className="text-white bg-cyan-500 hover:bg-cyan-600 font-medium rounded-full text-xs px-4 py-1.5"
+          >
+            Pay now
+          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-xl text-gray-700"
@@ -121,36 +121,9 @@ const Header = () => {
           </form>
 
           <div className="flex flex-wrap items-center gap-2 justify-center">
-            {userPayInfo && (
-              <p
-                className={`text-white py-1 px-2 rounded-full text-xs font-semibold ${
-                  userPayInfo.RenewDays > 60
-                    ? "bg-green-500"
-                    : userPayInfo.RenewDays > 30
-                    ? "bg-yellow-500"
-                    : "bg-rose-500"
-                }`}
-              >
-                Days: {userPayInfo.RenewDays}
-              </p>
-            )}
-            {userPayInfo && (
-              <p
-                className={`text-white py-1 px-2 rounded-full text-xs font-semibold ${
-                  userPayInfo.BalanceDr - userPayInfo.BalanceCr > 20
-                    ? "bg-green-500"
-                    : userPayInfo.BalanceDr - userPayInfo.BalanceCr > 10
-                    ? "bg-yellow-500"
-                    : "bg-rose-500"
-                }`}
-              >
-                Quota: {userPayInfo.BalanceDr - userPayInfo.BalanceCr}
-              </p>
-            )}
-          <div className="block sm:hidden">
-            <TranslateButton />
-          </div>
-            <DropdownNotification />
+
+          
+            {/* <DropdownNotification /> */}
             <DropdownUser />
           </div>
         </div>
@@ -219,41 +192,36 @@ const Header = () => {
         <div className="flex items-center gap-3 flex-shrink-0">
           {userPayInfo && (
             <p
-              className={`text-white py-[8px] px-[10px] md:px-[20px] rounded-full mb-0 text-nowrap text-[14px] font-semibold  ${
-                userPayInfo.RenewDays > 60
+              className={`text-white py-[8px] px-[10px] md:px-[20px] rounded-full mb-0 text-nowrap text-[14px] font-semibold  ${userPayInfo.RenewDays > 60
                   ? "bg-green-500"
                   : userPayInfo.RenewDays > 30
-                  ? "bg-yellow-500"
-                  : "bg-rose-500"
-              }`}
+                    ? "bg-yellow-500"
+                    : "bg-rose-500"
+                }`}
             >
               Days: {userPayInfo.RenewDays}
             </p>
           )}
           {userPayInfo && (
             <p
-              className={`text-white py-[8px] px-[10px] md:px-[20px] rounded-full mb-0 text-nowrap text-[14px] font-semibold  ${
-                userPayInfo.BalanceDr - userPayInfo.BalanceCr > 20
+              className={`text-white py-[8px] px-[10px] md:px-[20px] rounded-full mb-0 text-nowrap text-[14px] font-semibold  ${userPayInfo.BalanceDr - userPayInfo.BalanceCr > 20
                   ? "bg-green-500"
                   : userPayInfo.BalanceDr - userPayInfo.BalanceCr > 10
-                  ? "bg-yellow-500"
-                  : "bg-rose-500"
-              }`}
+                    ? "bg-yellow-500"
+                    : "bg-rose-500"
+                }`}
             >
               Quota: {userPayInfo.BalanceDr - userPayInfo.BalanceCr}
             </p>
           )}
 
           {
-            softwareDetails && <a className="btn btn-info bg-blue-500 py-[8px] px-[10px] md:px-[20px] rounded-full mb-0 text-[14px] text-white whitespace-nowrap d-inline flex gap-2" href={softwareDetails.UpSoftwareLink}><svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-device-desktop-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 16h-9.5a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v7.5" /><path d="M7 20h5" /><path d="M9 16v4" /><path d="M19 16v6" /><path d="M22 19l-3 3l-3 -3" /></svg> Download</a>
+            softwareDetails && <a className="btn btn-info bg-blue-500 py-[8px] px-[10px] md:px-[20px] rounded-full mb-0 text-[14px] text-white whitespace-nowrap d-inline flex gap-2" href={softwareDetails.UpSoftwareLink}><svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-device-desktop-down"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M13.5 16h-9.5a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v7.5" /><path d="M7 20h5" /><path d="M9 16v4" /><path d="M19 16v6" /><path d="M22 19l-3 3l-3 -3" /></svg> Download</a>
           }
 
 
-          <Button onClick={handleOpenModal} className="!rounded-full">
-            {translate("Pay Now")}
-          </Button>
-          <TranslateButton />
-          <DropdownNotification />
+
+          {/* <DropdownNotification /> */}
           <DropdownUser />
         </div>
       </div>

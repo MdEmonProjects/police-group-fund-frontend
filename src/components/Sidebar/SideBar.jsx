@@ -50,18 +50,14 @@ const SideBar = () => {
     });
   };
 
-  const filteredMenuData = useMemo(() => {
+  /*const filteredMenuData = useMemo(() => {
     if (!permissions?.data || !user) return []; // Check permissions.data instead of permissions
 
     return menuData
       .map((menu) => {
         if (Array.isArray(menu.subMenu)) {
           const filteredSubMenu = menu.subMenu.filter((subItem) => {
-            /**
-             * Main Route
-             * General Information
-             * Complete
-             */
+          
             if (subItem.name === 'New User') {
               return hasPermission(permissionsDataList.user_entry);
             }
@@ -86,10 +82,7 @@ const SideBar = () => {
             if (subItem.name === 'User Image') {
               return hasPermission(permissionsDataList.user_photo);
             }
-            /**
-             * Main Route
-             * Student
-             */
+     
             if (subItem.name === 'Session') {
               return hasPermission(permissionsDataList.academic_year);
             }
@@ -129,10 +122,7 @@ const SideBar = () => {
             if (subItem.name === 'Class Routine') {
               return hasPermission(permissionsDataList.class);
             }
-            /**
-             * Main Route
-             * Exam
-             */
+       
             if (subItem.name === 'Exam') {
               return hasPermission(permissionsDataList.exam_name);
             }
@@ -160,10 +150,6 @@ const SideBar = () => {
               return hasPermission(permissionsDataList.routine_with_signature);
             }
 
-            /**
-             * Main Route
-             * Result
-             */
             if (subItem.name === 'Online F: Publish') {
               return hasPermission(permissionsDataList.result_entry);
             }
@@ -171,20 +157,14 @@ const SideBar = () => {
               return hasPermission(permissionsDataList.result_report);
             }
 
-            /**
-             * Main Route
-             * Darul Ikama
-             */
+       
             if (subItem.name === 'Character Report') {
               return hasPermission(permissionsDataList.certificate);
             }
             if (subItem.name === 'Gate pass and leave') {
               return hasPermission(permissionsDataList.gate_pass_leave);
             }
-            /**
-             * Main Route
-             * Accounting
-             */
+       
             if (subItem.name === 'Deposit Costs') {
               return hasPermission(permissionsDataList.income_expense);
             }
@@ -212,10 +192,7 @@ const SideBar = () => {
             if (subItem.name === 'Delete Edit Record') {
               return hasPermission(permissionsDataList.user_transaction);
             }
-            /**
-             * Main Route
-             * Accounting
-             */
+        
             if (subItem.name === 'Teacher Info') {
               return hasPermission(permissionsDataList.teacher_info);
             }
@@ -278,22 +255,22 @@ const SideBar = () => {
         }
       }
     });
-  }, [location.pathname, filteredMenuData, permissions?.data, user]);
+  }, [location.pathname, filteredMenuData, permissions?.data, user]);*/
 
   const handleToggle = (id) => {
     setOpenMenuId((prev) => (prev === id ? null : id));
   };
 
-  if (isLoading || isFetching) return <Loading />;
+  // if (isLoading || isFetching) return <Loading />;
 
-  if (isError)
-    return <div className="p-4 text-red-500">Failed to load menu.</div>;
+  // if (isError)
+  //   return <div className="p-4 text-red-500">Failed to load menu.</div>;
 
   return (
     <aside className="h-[calc(100vh-64px)] lg:h-full overflow-y-auto w-[250px] bg-white shadow-[2px_0_4px_rgba(0,0,0,0.1)] text-sm text-black scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 scrollbar-thumb-rounded-full print:hidden">
       <nav className="mt-4">
         <ul className="space-y-2 pb-4">
-          {filteredMenuData.map((menu) => (
+          {menuData.map((menu) => (
             <li key={menu.id}>
               {Array.isArray(menu.subMenu) ? (
                 <>
