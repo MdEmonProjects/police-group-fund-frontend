@@ -9,15 +9,18 @@ import { bankNames } from "../../components/Data/bankname";
 import { closeModal } from "../../features/modal/modalSlice";
 import { useDispatch } from "react-redux";
 import { setPaidStatus } from "../../features/dashboard/dashboardSlice";
+import { useSavePaymentMutation } from "../../features/userPanel/userInfo/userInfoQuerySlice";
 const PaymentModal = () => {
     const methods = useForm();
     const { handleSubmit, watch, reset, register } = methods;
     const [activeTab, setActiveTab] = useState("mobile");
+
+    const [savePayment, { isLoading }] = useSavePaymentMutation()
     const dispatch = useDispatch();
-    const onSubmit = async (data) => {
-        console.log(data);
+    const onSubmit = async (payload) => {
+        console.log(payload);
         try {
-            // const response = await CodeSetting(payload).unwrap();
+            const response = await savePayment(payload).unwrap();
             //save payment data
             dispatch(setPaidStatus(true));
             // ✅ Success message
@@ -92,6 +95,12 @@ const PaymentModal = () => {
                             label="Transaction ID"
                             type="text"
                             require={"Transaction ID is required"}
+                        />
+                        <DefaultInput
+                            registerKey="amount"
+                            label="Amount"
+                            type="text"
+                            require={"Amount is required"}
                         />
                         <Button type="submit" className="!rounded-full">Pay Now</Button>
                     </form>
