@@ -17,7 +17,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const { data: doners = [] } = useGetTotalDonerQuery();
-  const { data: userDetails = {} } = useGetUserDetailsQuery();
+  const { data: userDetails } = useGetUserDetailsQuery();
   // useGeAllReportsQuery();
 
   // const { schoolData } = useSelector((state) => state.studentResultPublicView);

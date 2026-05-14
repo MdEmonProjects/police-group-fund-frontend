@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const API_URL = import.meta.env.VITE_SERVER_URL;
 
 export const adminPanelDonerInfo = createApi({
-  reducerPath: 'userpanelUserInfo',
+  reducerPath: 'adminPanelDonerInfo',
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}/api/admin/user/`,
     prepareHeaders: (headers) => {
